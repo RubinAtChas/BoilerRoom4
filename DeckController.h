@@ -15,6 +15,9 @@ public:
                                               "Club",
                                               "Dimonds",
                                               "Spade"};
-        std::vector<int> number = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-    }
+        std::vector<int> Hearts = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        std::vector<int> Club = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        std::vector<int> Dimonds = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        std::vector<int> Spade = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        }
 };
