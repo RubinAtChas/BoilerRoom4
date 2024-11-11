@@ -13,11 +13,11 @@ private:
 public:
     void generateDeck()
     {
-        std::vector<std::string> colorcard = {"Hearts",
-                                              "Club",
-                                              "Dimonds",
-                                              "Spade"};
-        std::vector<int> number = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        const std::vector<std::string> colorcard = {"Hearts",
+                                                    "Club",
+                                                    "Dimonds",
+                                                    "Spade"};
+        const std::vector<int> number = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
         for (std::string thisColor : colorcard)
         {
             for (int thisCardNum : number)
@@ -42,7 +42,7 @@ public:
         int index = 0;
         for (Card thisCard : Deck)
         {
-            std::cout << "I: " << index << " Suit: " << thisCard.color << " Number: " << thisCard.number << std::endl;
+            std::cout << "I: " << index << "| Suit: " << thisCard.color << "| Number: " << thisCard.number << std::endl;
             index++;
         }
     }
