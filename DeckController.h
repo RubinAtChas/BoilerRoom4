@@ -29,7 +29,7 @@ public:
             }
         }
     }
-    void randommizeDeck()
+    void shuffleDeck()
     {
         std::random_device rd;  // Frö för att skapa en bra initial seed
         std::mt19937 rng(rd()); // Mersenne Twister slumpmotor med frö från random_device
