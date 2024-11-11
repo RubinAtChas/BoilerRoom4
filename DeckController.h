@@ -46,4 +46,8 @@ public:
             index++;
         }
     }
+    std::vector<Card> getDeck()
+    {
+        return Deck;
+    }
 };
