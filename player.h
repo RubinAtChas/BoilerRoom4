@@ -8,28 +8,34 @@
 class Player
 {
 private:
-std::string name;
-std::vector<Card>hand;
+    std::string name;
+    std::vector<Card> hand;
+
 public:
-Player(std::string name, std::vector<Card>hand)
-: name(name),hand(hand){}
+    Player(std::string name)
+        : name(name) {}
 
-void displayName()
-{
-    std::cout << name << std::endl;
-
-}
-Card playCard()
-{
-    Card lastCard = hand.back();
-    hand.pop_back();
-    return lastCard;
-}
-void addCards(std::vector<Card>playedCards)
-{
-    hand.insert(hand.begin(),playedCards.begin(),playedCards.end());
-}
-
+    void displayName()
+    {
+        std::cout << name << std::endl;
+    }
+    Card playCard()
+    {
+        Card lastCard = hand.back();
+        hand.pop_back();
+        return lastCard;
+    }
+    void addCards(Card newCard)
+    {
+        hand.push_back(newCard);
+    }
+    void displayHand()
+    {
+        for (Card thisCard : hand)
+        {
+            std::cout << "Suit: " << thisCard.color << " Int: " << thisCard.number << std::endl;
+        }
+    }
 };
 
 #endif
