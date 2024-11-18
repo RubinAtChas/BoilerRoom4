@@ -17,16 +17,11 @@ void ViewAllPlayers(std::vector<Player> players)
 int main()
 {
     std::vector<Player> players;
-    int choice = 0;
-    do
-    {
-        createGame createGame;
-        players = createGame.createPlayers();
-        players = createGame.createPlayersHand();
-        ViewAllPlayers(players);
-        std::cout << "You wanna play another?" << std::endl;
-        std::cin >> choice;
-    } while (choice == 1);
+
+    createGame createGame;
+    players = createGame.createPlayers();
+    players = createGame.createPlayersHand();
+    ViewAllPlayers(players);
 
     return 0;
 }
