@@ -33,7 +33,7 @@ public:
     {
         for (Card thisCard : hand)
         {
-            std::cout << "Suit: " << thisCard.color << " Int: " << thisCard.number << std::endl;
+            std::cout << "Suit: " << thisCard.color << " Number: " << thisCard.number << std::endl;
         }
     }
 };

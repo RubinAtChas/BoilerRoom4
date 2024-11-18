@@ -1,6 +1,7 @@
 #include "DeckController.h"
 #include "Card.h"
 #include "player.h"
+#include <vector>
 #include <iostream>
 
 int main()
@@ -18,6 +19,7 @@ int main()
     std::cout << "Hello and welcome to War game" << std::endl;
     std::cout << "How many are playing?" << std::endl;
     std::cin >> playersCount;
+
     for (int i = 0; i < playersCount; i++)
     {
         std::string name;
@@ -26,8 +28,9 @@ int main()
         Player thisplayer(name);
         players.push_back(thisplayer);
     }
+
     int playerI = 0;
-    for (int j = 0; j < 52; j++)
+    for (int j = 0; j < Deck.getDeck().size(); j++)
     {
         players.at(playerI).addCards(Deck.getDeck().at(j));
         playerI++;
@@ -36,6 +39,7 @@ int main()
             playerI = 0;
         }
     }
+
     for (Player thisPlayer : players)
     {
         std::cout << "Player: ";
