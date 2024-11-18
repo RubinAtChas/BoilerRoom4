@@ -1,3 +1,5 @@
+#ifndef DeckController_H
+#define DeckController_H
 #include <iostream>
 #include <vector>
 #include <string>
@@ -51,3 +53,4 @@ public:
         return Deck;
     }
 };
+#endif
