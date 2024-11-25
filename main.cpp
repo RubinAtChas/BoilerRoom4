@@ -1,11 +1,11 @@
 #include "DeckController.h"
 #include "Card.h"
-#include "player.h"
+#include "Player.h"
 #include <vector>
 #include <iostream>
 
 void gameRound(std::vector<Player> &players);
-void checkForWinner(std::vector<Player> &players, std::vector<Card> cards);
+void checkForWinner(std::vector<Player> &players, std::vector<Card> &table);
 void handleStandoff(std::vector<Player> &players, const std::vector<int> &winners, std::vector<Card> &table);
 
 int main()
@@ -17,7 +17,6 @@ int main()
     Deck.printDeck();
 
     int playersCount = 0;
-    ;
 
     std::vector<Player> players;
     std::cout << "Hello and welcome to War game" << std::endl;
@@ -44,48 +43,59 @@ int main()
         }
     }
 
-    for (Player thisPlayer : players)
+    for (Player &thisPlayer : players)
     {
         std::cout << "Player: ";
         thisPlayer.displayName();
         thisPlayer.displayHand();
     }
 
-    gameRound(players);
+    while (players.size() > 1)
+    {
+        gameRound(players);
+    }
+
+    std::cout << "Game over! Winner is: " << players[0].getName() << std::endl;
 
     return 0;
 }
 
 void gameRound(std::vector<Player> &players)
 {
-    std::vector<Card> cards(players.size());
+    std::vector<Card> table;
 
     for (int i = 0; i < players.size(); i++)
     {
         if (!players[i].hasCards())
             continue;
 
-        cards[i] = players[i].playCard();
+        Card playedCard = players[i].playCard();
+        table.push_back(playedCard);
+
         players[i].displayName();
-        std::cout << cards[i].color << cards[i].number << std::endl;
+        std::cout << " played: " << playedCard.color << " " << playedCard.number << std::endl;
     }
-    checkForWinner(players, cards);
+
+    checkForWinner(players, table);
 }
 
-void checkForWinner(std::vector<Player> &players, std::vector<Card> cards)
+void checkForWinner(std::vector<Player> &players, std::vector<Card> &table)
 {
     int highestNumber = -1;
     std::vector<int> winners;
 
-    for (int i = 0; i < cards.size(); i++)
+    for (int i = 0; i < players.size(); i++)
     {
-        if (cards[i].number > highestNumber)
+        if (!players[i].hasCards())
+            continue;
+
+        if (table[i].number > highestNumber)
         {
-            highestNumber = cards[i].number;
+            highestNumber = table[i].number;
             winners.clear();
             winners.push_back(i);
         }
-        else if (cards[i].number == highestNumber)
+        else if (table[i].number == highestNumber)
         {
             winners.push_back(i);
         }
@@ -96,14 +106,14 @@ void checkForWinner(std::vector<Player> &players, std::vector<Card> cards)
         int winnerIndex = winners[0];
         std::cout << players[winnerIndex].getName() << " wins this round!" << std::endl;
 
-        for (const auto &card : cards)
+        for (const auto &card : table)
         {
             players[winnerIndex].addCard(card);
         }
     }
     else
     {
-        std::cout << "Its a tie between:";
+        std::cout << "It's a tie between:";
         for (int idx : winners)
         {
             std::cout << " " << players[idx].getName();
@@ -128,9 +138,11 @@ void handleStandoff(std::vector<Player> &players, const std::vector<int> &winner
 
             if (players[idx].hasCards())
             {
-                table.push_back(players[idx].playCard());
-                std::cout << players[idx].getName() << " lägger ett standoffkort." << std::endl;
+                Card standoffCard = players[idx].playCard();
+                table.push_back(standoffCard);
+                std::cout << players[idx].getName() << " plays a standoff card: " << standoffCard.color << " " << standoffCard.number << std::endl;
             }
         }
     }
+    checkForWinner(players, table);
 }
