@@ -4,7 +4,7 @@
 #include <vector>
 #include <iostream>
 
-void gameRound(std::vector<Player> &players);
+void gameRound(std::vector<Player> &players, std::vector<int> playerIds);
 void checkForWinner(std::vector<Player> &players, std::vector<Card> &table);
 void handleStandoff(std::vector<Player> &players, std::vector<int> winners, std::vector<Card> &table);
 
@@ -28,7 +28,7 @@ int main()
         std::string name;
         std::cout << "Write your name" << std::endl;
         std::cin >> name;
-        Player thisplayer(name);
+        Player thisplayer(name, i);
         players.push_back(thisplayer);
     }
 
@@ -52,7 +52,13 @@ int main()
 
     while (players.size() > 1)
     {
-        gameRound(players);
+        std::vector<int> playerIds;
+        for (Player player : players)
+        {
+            playerIds.push_back(player.getId());
+        }
+        std::vector<Card> table;
+        gameRound(players, playerIds, table);
     }
 
     std::cout << "Game over! Winner is: " << players[0].getName() << std::endl;
@@ -60,12 +66,14 @@ int main()
     return 0;
 }
 
-void gameRound(std::vector<Player> &players)
+void gameRound(std::vector<Player> &players, std::vector<int> playerIds, std::vector<Card> table)
 {
-    std::vector<Card> table;
 
     for (int i = 0; i < players.size(); i++)
     {
+        if (std::find(playerIds.begin(), playerIds.end(), players[i].getId()) == playerIds.end())
+            continue;
+
         if (!players[i].hasCards())
             continue;
 
@@ -74,17 +82,16 @@ void gameRound(std::vector<Player> &players)
 
         players[i].displayName();
         std::cout << " played: " << playedCard.color << " " << playedCard.number << std::endl;
+        checkForWinner(players, table);
     }
-
-    checkForWinner(players, table);
 }
 
-void checkForWinner(std::vector<Player> &players, std::vector<Card> &table)
+void checkForWinner(std::vector<Player> &players, std::vector<int> playerIds, std::vector<Card> &table)
 {
     int highestNumber = -1;
     std::vector<int> winners;
 
-    for (int i = 0; i < players.size(); i++)
+    for (int i = 0; i < playerIds.size(); i++)
     {
         if (!players[i].hasCards()) // ????
             continue;
@@ -144,5 +151,5 @@ void handleStandoff(std::vector<Player> &players, std::vector<int> winners, std:
             }
         }
     }
-    checkForWinner(players, table); // OBS -- Måste göras om för att kolla vem som vinner standoffen
+    gameRound(players, winners, table); // OBS -- Måste göras om för att kolla vem som vinner standoffen
 }

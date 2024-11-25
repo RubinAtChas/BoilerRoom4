@@ -13,8 +13,8 @@ private:
     std::vector<Card> hand;
 
 public:
-    Player(std::string name)
-        : name(name) {}
+    Player(std::string name, int id)
+        : name(name), id(id) {}
 
     void displayName()
     {
@@ -25,6 +25,13 @@ public:
     {
         return name;
     }
+
+    void setId(int id)
+    {
+        this->id = id;
+    }
+
+    int getId() { return id; }
 
     Card playCard()
     {
