@@ -1,53 +1,31 @@
 #include "DeckController.h"
 #include "Card.h"
-#include "Player.h"
+#include "player.h"
+#include "createGame.h"
 #include <vector>
 #include <iostream>
+#include "MenySystem.h"
 
-void gameRound(std::vector<Player> &players, std::vector<int> playerIds);
-void checkForWinner(std::vector<Player> &players, std::vector<Card> &table);
-void handleStandoff(std::vector<Player> &players, std::vector<int> winners, std::vector<Card> &table);
-
-int main()
+void ViewAllPlayers(std::vector<Player> players)
 {
-    DeckController Deck;
-    Deck.generateDeck();
-    Deck.printDeck();
-    Deck.shuffleDeck();
-    Deck.printDeck();
-
-    int playersCount = 0;
-
-    std::vector<Player> players;
-    std::cout << "Hello and welcome to War game" << std::endl;
-    std::cout << "How many are playing?" << std::endl;
-    std::cin >> playersCount;
-
-    for (int i = 0; i < playersCount; i++)
-    {
-        std::string name;
-        std::cout << "Write your name" << std::endl;
-        std::cin >> name;
-        Player thisplayer(name, i);
-        players.push_back(thisplayer);
-    }
-
-    int playerI = 0;
-    for (int j = 0; j < Deck.getDeck().size(); j++)
-    {
-        players.at(playerI).addCard(Deck.getDeck().at(j));
-        playerI++;
-        if (playerI >= playersCount)
-        {
-            playerI = 0;
-        }
-    }
-
-    for (Player &thisPlayer : players)
+    for (Player thisPlayer : players)
     {
         std::cout << "Player: ";
         thisPlayer.displayName();
         thisPlayer.displayHand();
+    }
+}
+int main()
+{
+    bool continueGame = false;
+    std::vector<Player> players;
+    continueGame = startMeny();
+    while (continueGame == true)
+    {
+        createGame createGame;
+        players = createGame.createPlayers();
+        players = createGame.createPlayersHand();
+        ViewAllPlayers(players);
     }
 
     while (players.size() > 1)
