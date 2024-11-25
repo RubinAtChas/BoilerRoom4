@@ -19,22 +19,40 @@ public:
     {
         std::cout << name << std::endl;
     }
+
+    std::string getName()
+    {
+        return name;
+    }
+
     Card playCard()
     {
         Card lastCard = hand.back();
         hand.pop_back();
         return lastCard;
     }
-    void addCards(Card newCard)
+
+    void addCard(Card newCard)
     {
         hand.push_back(newCard);
     }
+
+    int remainingCards() const
+    {
+        return hand.size();
+    }
+
     void displayHand()
     {
         for (Card thisCard : hand)
         {
             std::cout << "Suit: " << thisCard.color << " Number: " << thisCard.number << std::endl;
         }
+    }
+
+    bool hasCards()
+    {
+        return !hand.empty();
     }
 };
 
