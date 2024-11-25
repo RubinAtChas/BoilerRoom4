@@ -4,6 +4,7 @@
 #include "createGame.h"
 #include <vector>
 #include <iostream>
+#include "MenySystem.h"
 
 void ViewAllPlayers(std::vector<Player> players)
 {
@@ -16,12 +17,16 @@ void ViewAllPlayers(std::vector<Player> players)
 }
 int main()
 {
+    bool continueGame = false;
     std::vector<Player> players;
-
-    createGame createGame;
-    players = createGame.createPlayers();
-    players = createGame.createPlayersHand();
-    ViewAllPlayers(players);
+    continueGame = startMeny();
+    while (continueGame == true)
+    {
+        createGame createGame;
+        players = createGame.createPlayers();
+        players = createGame.createPlayersHand();
+        ViewAllPlayers(players);
+    }
 
     return 0;
 }
