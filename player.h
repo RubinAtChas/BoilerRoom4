@@ -15,9 +15,9 @@ public:
     Player(std::string name)
         : name(name) {}
 
-    void displayName()
+    std::string& getName()
     {
-        std::cout << name << std::endl;
+        return name;
     }
     Card playCard()
     {
@@ -36,6 +36,11 @@ public:
             std::cout << "Suit: " << thisCard.color << " Number: " << thisCard.number << std::endl;
         }
     }
+    std::vector<Card> returnHand()
+    {
+        return hand;
+    }
 };
+
 
 #endif

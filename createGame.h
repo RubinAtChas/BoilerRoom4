@@ -3,7 +3,6 @@
 #include "player.h"
 #include "DeckController.h"
 #include <stdexcept>
-
 class createGame
 {
 private:
@@ -12,6 +11,7 @@ private:
     int playerCount;
 
 public:
+    void erasePlayer();
     createGame();
     std::vector<Player> createPlayersHand();
     std::vector<Player> createPlayers();
@@ -74,6 +74,24 @@ std::vector<Player> createGame::createPlayers()
         players.push_back(thisplayer);
     }
     return players;
+}
+
+
+void createGame::erasePlayer()
+{
+    for (int i = 0; i < players.size();)
+    {
+        if (players[i].returnHand().empty())
+        {
+            
+            std::cout << "The player: " << players[i].getName() << " has been eliminated" << std::endl;
+            players.erase(players.begin() + i);
+        }
+        else
+        {
+            i++;
+        }
+    }
 }
 
 #endif
