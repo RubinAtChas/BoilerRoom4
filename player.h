@@ -8,6 +8,7 @@
 class Player
 {
 private:
+    int id;
     std::string name;
     std::vector<Card> hand;
 

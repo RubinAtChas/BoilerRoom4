@@ -86,7 +86,7 @@ void checkForWinner(std::vector<Player> &players, std::vector<Card> &table)
 
     for (int i = 0; i < players.size(); i++)
     {
-        if (!players[i].hasCards())
+        if (!players[i].hasCards()) // ????
             continue;
 
         if (table[i].number > highestNumber)
@@ -119,6 +119,12 @@ void checkForWinner(std::vector<Player> &players, std::vector<Card> &table)
             std::cout << " " << players[idx].getName();
         }
         std::cout << std::endl;
+
+        // std::vector<Player> standoffPlayers;
+        // for (int i = 0; i < winners.size(); i++)
+        // {
+        //     standoffPlayers.push_back(players[i]);
+        // }
 
         handleStandoff(players, winners, table);
     }
