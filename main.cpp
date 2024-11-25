@@ -6,7 +6,7 @@
 
 void gameRound(std::vector<Player> &players);
 void checkForWinner(std::vector<Player> &players, std::vector<Card> &table);
-void handleStandoff(std::vector<Player> &players, const std::vector<int> &winners, std::vector<Card> &table);
+void handleStandoff(std::vector<Player> &players, std::vector<int> winners, std::vector<Card> &table);
 
 int main()
 {
@@ -124,25 +124,19 @@ void checkForWinner(std::vector<Player> &players, std::vector<Card> &table)
     }
 }
 
-void handleStandoff(std::vector<Player> &players, const std::vector<int> &winners, std::vector<Card> &table)
+void handleStandoff(std::vector<Player> &players, std::vector<int> winners, std::vector<Card> &table)
 {
-    for (int idx : winners)
+    for (int i = 0; i < winners.size(); i++)
     {
-        if (players[idx].hasCards())
+        for (int j = 0; j < 3; j++)
         {
-            int count = std::min(3, players[idx].remainingCards() - 1);
-            for (int i = 0; i < count; ++i)
+            if (players[winners[i]].hasCards())
             {
-                table.push_back(players[idx].playCard());
-            }
-
-            if (players[idx].hasCards())
-            {
-                Card standoffCard = players[idx].playCard();
+                Card standoffCard = players[winners[i]].playCard();
                 table.push_back(standoffCard);
-                std::cout << players[idx].getName() << " plays a standoff card: " << standoffCard.color << " " << standoffCard.number << std::endl;
+                std::cout << players[winners[i]].getName() << " plays a standoff card: " << standoffCard.color << " " << standoffCard.number << std::endl;
             }
         }
     }
-    checkForWinner(players, table);
+    checkForWinner(players, table); // OBS -- Måste göras om för att kolla vem som vinner standoffen
 }
