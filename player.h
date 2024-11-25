@@ -34,7 +34,7 @@ public:
 
     void addCard(Card newCard)
     {
-        hand.push_back(newCard);
+        hand.insert(hand.begin(), newCard);
     }
 
     int remainingCards() const
