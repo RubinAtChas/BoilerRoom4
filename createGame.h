@@ -27,7 +27,7 @@ std::vector<Player> createGame::createPlayersHand()
     int playerI = 0;
     for (int j = 0; j < Deck.getDeck().size(); j++)
     {
-        players.at(playerI).addCards(Deck.getDeck().at(j));
+        players.at(playerI).addCard(Deck.getDeck().at(j));
         playerI++;
         if (playerI >= playerCount)
         {
@@ -70,7 +70,7 @@ std::vector<Player> createGame::createPlayers()
         std::string name;
         std::cout << "Write your name" << std::endl;
         std::cin >> name;
-        Player thisplayer(name);
+        Player thisplayer(name, i);
         players.push_back(thisplayer);
     }
     return players;

@@ -17,6 +17,7 @@ bool startMeny()
 {
     std::cout << "Welcome to card game WAR" << std::endl;
     int choice = 0;
+    bool isGamerunning = false;
     do
     {
         std::cout << "1. How to play" << std::endl
@@ -31,11 +32,11 @@ bool startMeny()
                 displayRules();
                 break;
             case 2:
-                return true;
+                isGamerunning = true;
                 break;
             case 3:
                 std::cout << "Exiting Game...";
-                return false;
+                isGamerunning = false;
                 break;
             default:
                 throw std::runtime_error("Chose between 1 and 3!");
@@ -48,4 +49,5 @@ bool startMeny()
         }
 
     } while (choice != 3 && choice != 2);
+    return isGamerunning;
 };
