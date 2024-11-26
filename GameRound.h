@@ -31,10 +31,7 @@ void GameRound::gameRound()
             continue;
 
         if (!players[i].hasCards())
-        {
-            players.erase(players.begin() + i);
             continue;
-        }
 
         Card playedCard = players[i].playCard();
         table.push_back(playedCard);
@@ -65,7 +62,7 @@ void GameRound::checkForWinner()
         }
     }
 
-    if (winners.size() == 1)
+    if (winners.size() <= 1)
     {
         int winnerIndex = winners[0];
         std::cout << players[winnerIndex].getName() << " wins this round!" << std::endl;
